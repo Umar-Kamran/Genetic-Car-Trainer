@@ -36,6 +36,12 @@ public class Inputs : MonoBehaviour
     /// </summary>
     private List<KeyCode> Numbers;
 
+    float moveUp;
+
+    float moveRight;
+
+    Vector3 currentVelocity;
+
     #endregion
 
     #region Unity Methods
@@ -58,7 +64,10 @@ public class Inputs : MonoBehaviour
         UserMovesCamera = false;
         AIManager = GameObject.FindGameObjectWithTag("manager").GetComponent<AIManager>();
         moveCamera = GameObject.FindGameObjectWithTag("manager").GetComponent<MoveCamera>();
-        Speed = 0.2f;
+        Speed = 9f;
+        moveRight = 0;
+        moveUp = 0;
+        currentVelocity = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -107,24 +116,30 @@ public class Inputs : MonoBehaviour
             Time.timeScale = 30f;
         else if (Input.GetKeyUp(KeyCode.Backspace))
             Time.timeScale = 1f;
-    }
 
-    private void FixedUpdate()
-    {
+
+        if (Input.GetKey(KeyCode.W))
+            moveUp = 1;
+        else if (Input.GetKey(KeyCode.S))
+            moveUp = -1;
+        if (Input.GetKey(KeyCode.D))
+            moveRight = 1;
+        else if (Input.GetKey(KeyCode.A))
+            moveRight = -1;
+
+
         //moves camera
         if (UserMovesCamera && SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(0))
         {
-            if (Input.GetKey(KeyCode.W))
-                transf.Translate(new Vector3(0, Speed, 0));
-            if (Input.GetKey(KeyCode.S))
-                transf.Translate(new Vector3(0, -Speed, 0));
-            if (Input.GetKey(KeyCode.A))
-                transf.Translate(new Vector3(-Speed, 0, 0));
-            if (Input.GetKey(KeyCode.D))
-                transf.Translate(new Vector3(Speed, 0, 0));
-        }
+            currentVelocity = Vector3.Lerp(currentVelocity, new Vector3(moveRight * Speed * Time.deltaTime, moveUp * Speed * Time.deltaTime, 0), 0.8f);
+            transf.Translate(currentVelocity);
 
+
+        }
+        moveRight = 0;
+        moveUp = 0;
     }
+
     #endregion
 
     #region Methods

@@ -1019,7 +1019,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3161,7 +3161,7 @@ MonoBehaviour:
   carCount: 120
   startingPosition: {x: 5, y: -3}
   startingRotation: {x: 0, y: 0, z: 180}
-  layerShaping: 050000001400000002000000
+  layerShaping: 05000000140000000800000002000000
   CheckpointScores:
   - {fileID: 1811799785}
   - {fileID: 1348783494}
