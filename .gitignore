@@ -70,3 +70,10 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/Unity/Assets/TextMesh Pro
+/Unity/ProjectSettings
+/Unity/Packages
+/Unity/Assets/Sprites
+/Unity/Assets/Prefabs
+/Unity/Assets/Scenes
+Unity/Assets/TextMesh Pro.meta

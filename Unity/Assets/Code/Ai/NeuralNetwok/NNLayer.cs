@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-
-public class NNLayer 
+public class NNLayer
 {
     #region Attributes
 
@@ -13,14 +8,14 @@ public class NNLayer
     /// node i of this layer to node j of the next layer
     /// </summary>
     public double[,] Weights
-    {  get; private set; }
+    { get; private set; }
 
     /// <summary>
     /// Biases of this layer.
     /// Bias[i] represents the bias added to generate
     /// the value of node i in the next layer
     /// </summary>
-    public double[] Biases { get; private set;}
+    public double[] Biases { get; private set; }
 
     /// <summary>
     /// Contains the activation function for this layer
@@ -34,24 +29,31 @@ public class NNLayer
     /// <summary>
     /// Stores number of nodes in this layer
     /// </summary>
-    public uint InputNodes {  get; private set; }
+    public uint InputNodes { get; private set; }
 
     /// <summary>
     /// Stores number of outputs, so the number of nodes in the next layer
     /// </summary>
-    public uint OutputNodes {  get; private set; }
+    public uint OutputNodes { get; private set; }
+
+    private static System.Random rnd = new System.Random();
     #endregion
 
     #region Constructor
-    public NNLayer (uint inputNodes, uint outputNode)
+    /// <summary>
+    /// Constructor for a Layer of the neural network, initialises variables
+    /// </summary>
+    /// <param name="inputNodes">Number of inputs to this layer</param>
+    /// <param name="outputNode">Number of outputs of this layer</param>
+    public NNLayer(uint inputNodes, uint outputNode)
     {
         InputNodes = inputNodes;
         OutputNodes = outputNode;
-        
+
         Weights = new double[InputNodes, OutputNodes];
+        Biases = new double[outputNode];
     }
 
-    private static System.Random rnd = new System.Random();
     #endregion
 
     #region Methods
@@ -68,8 +70,8 @@ public class NNLayer
             return;
 
         for (int i = 0; i < x; i++)
-            for(int j = 0; j < y; j++)
-                this.Weights[i,j] = weights[i, j];
+            for (int j = 0; j < y; j++)
+                this.Weights[i, j] = weights[i, j];
     }
 
     /// <summary>
@@ -82,7 +84,7 @@ public class NNLayer
         if (x != Biases.Length)
             return;
 
-        for(int i = 0;i < x; i++)
+        for (int i = 0; i < x; i++)
             this.Biases[i] = biases[i];
     }
 
@@ -94,7 +96,7 @@ public class NNLayer
     /// <returns>Outputs of applying weights and biases</returns>
     public double[] GenerateOutputs(double[] inputs)
     {
-        if(inputs.Length != Weights.GetLength(0))
+        if (inputs.Length != Weights.GetLength(0))
             return null;
 
         double[] weightedValues = new double[OutputNodes];
@@ -143,13 +145,15 @@ public class NNLayer
     /// <param name="shift">Smallest value</param>
     public void InitialiseLayerValues(double range, double shift)
     {
-
-        
-        for (int j = 0; j < OutputNodes; j++) {
+        for (int j = 0; j < OutputNodes; j++)
+        {
             Biases[j] = 0;
-            for (int i = 0; i <= InputNodes; i++)
+            for (int i = 0; i < InputNodes; i++)
+            {
                 Weights[i, j] = rnd.NextDouble() * range + shift;
             }
+
+        }
     }
     #endregion
 }
